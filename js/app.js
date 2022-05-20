@@ -133,7 +133,7 @@ search.addEventListener('input',function(){
     let noteCards = document.getElementsByClassName('noteCard');
     Array.from(noteCards).forEach(function(element){
         let cardText1 = element.getElementsByTagName('p')[0].innerText.toLowerCase();
-        let cardText2 = element.getElementsByTagName('h5')[1].innerText.toLowerCase();
+        let cardText2 = element.getElementsByTagName('h5')[0].innerText.toLowerCase();
         if(cardText1.includes(inputVal) || cardText2.includes(inputVal)){
             element.style.display = "block";
         }
