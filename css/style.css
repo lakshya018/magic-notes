@@ -1,0 +1,115 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #222831;
+    color: #EEEEEE;
+}
+
+.card{
+    background-color: #222831;
+    border-color: #eeeeee66;
+}
+
+.bookmark{
+    -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+    position: absolute;
+    top: -8px;
+    height: 40px;
+    width:44px;
+   
+    left:-5px ;
+}
+.indexNum{
+    
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  
+    
+
+}
+
+.index-num{
+    position: absolute;
+    top: -2px;
+   
+    left:17px ;
+   
+    /* padding-right: 5px; */
+    color: #222831;
+}
+#notes{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+.noteCard p{
+    text-align: justify;
+    
+}
+h5{
+    display: inline;
+}
+
+.modal-content{
+    background-color: #eeeeee;
+}
+.modal-title{
+    color: #222831;
+}
+.modal-body{
+    color: #222831;
+    text-align: center;
+}
+
+.social-links img{
+height: 25px;
+}
+.social-links a{
+    color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.modalName{
+    margin: auto;
+}
+.modalName p{
+    font-size:15px ;
+}
+.myPhoto img{
+   height: 200px;
+    /* display: inline; */
+}
+
+footer{
+    margin-top: 150px;
+    color: white;
+}
+.footer-content{
+    display: grid;
+    place-items: center;
+}
+.modal-body>p{
+    text-align: justify;
+}
+.modal-alignment{
+    vertical-align: middle;
+}
+@media (max-width: 768px){
+    .modal-body img{
+    height: 130px;
+ 
+    }
+    .modal-body p{
+        font-size: 14px;
+    }
+    .social-links img{
+        height: 20px;
+        }
+    .footer-content h4{
+        font-size: 18px;
+    }
+}
