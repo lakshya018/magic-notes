@@ -15,7 +15,7 @@ body{
     -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
     position: absolute;
-    top: -6px;
+    top: -8px;
     height: 40px;
     width:44px;
    
@@ -30,7 +30,13 @@ body{
     
 
 }
+.indexNum p{
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
 
+}
 .index-num{
     position: absolute;
     top: -2px;
@@ -45,11 +51,11 @@ body{
     text-align: center;
     justify-content: center;
 }
-.noteCard p{
+.editableDiv p{
     text-align: justify;
     
 }
-h5{
+h4{
     display: inline;
 }
 
