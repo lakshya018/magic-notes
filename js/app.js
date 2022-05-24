@@ -1,6 +1,7 @@
-console.log("Welcome to Notes App");
+// console.log("Welcome to Notes App");
 showNotes();
 // showBookmark();
+const monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function (e) {
   let addText = document.getElementById("addText");
@@ -29,8 +30,21 @@ addBtn.addEventListener("click", function (e) {
   } else {
     titleObj = JSON.parse(title);
   }
-
-  let bookmarkNotes = localStorage.getItem("bookmark");
+let dates=localStorage.getItem("date");
+if(dates==null){
+  dateObj= [];
+}
+else{
+  dateObj= JSON.parse(dates);
+}
+let time= localStorage.getItem("time");
+if(time==null){
+  timeObj = [];
+}
+else{
+  timeObj=JSON.parse(time);
+}
+let bookmarkNotes = localStorage.getItem("bookmark");
         
         if(bookmarkNotes==null){
             bookmarkNotesObj= [];
@@ -38,11 +52,23 @@ addBtn.addEventListener("click", function (e) {
         else{
             bookmarkNotesObj=JSON.parse(bookmarkNotes);
         }
+
+    let today = new Date();
+    // console.log(today);
+    let timeString=today.toLocaleTimeString();
+    let dateString=today.toDateString();
+
+
   notesObj.push(addText.value);
   titleObj.push(addTitle.value);
+  dateObj.push(dateString);
+  timeObj.push(timeString);
+
+  localStorage.setItem("date",JSON.stringify(dateObj));
   localStorage.setItem("bookmark",JSON.stringify(bookmarkNotesObj));
   localStorage.setItem("notes", JSON.stringify(notesObj));
   localStorage.setItem("title", JSON.stringify(titleObj));
+  localStorage.setItem("time",JSON.stringify(timeObj));
   addText.value = "";
   addTitle.value = "";
 //   console.log(notesObj);
@@ -65,7 +91,20 @@ function showNotes() {
   } else {
     titleObj = JSON.parse(title);
   }
-  
+  let dates=localStorage.getItem("date");
+if(dates==null){
+  dateObj= [];
+}
+else{
+  dateObj= JSON.parse(dates);
+}
+let time= localStorage.getItem("time");
+if(time==null){
+  timeObj = [];
+}
+else{
+  timeObj=JSON.parse(time);
+}
   let html = "";
   notesObj.forEach(function (element, index) {
     html += `
@@ -73,11 +112,12 @@ function showNotes() {
                     <div class="card-body">
                     <div class= "indexNum">
                       <img id="b${index}" src="img/bookmark.png" class="bookmark">
+                     <p>${dateObj[index]}, ${timeObj[index]}</p>
                       <h6 class= "index-num">${index + 1}</h6>
                     </div>    
                     
                       <div class="editableDiv"  >
-                       <h5 class="m-2 card-title" contentEditable = "true" onclick="editDivTitle(${index})">${titleObj[index]}</h5>
+                       <h4 class="m-2 card-title" contentEditable = "true" onclick="editDivTitle(${index})">${titleObj[index]}</h4>
                       <hr>
                         <p class="m-2 card-text" contentEditable = "true" onclick="editDivP(${index})">${element}</p>
                         <button onclick="deleteNote(this.id)" class="m-2 btn btn-warning" id="${index}">Delete Note</button>
@@ -117,6 +157,24 @@ function deleteNote(index){
     } else {
       titleObj = JSON.parse(title);
     }
+    let dates=localStorage.getItem("date");
+if(dates==null){
+  dateObj= [];
+}
+else{
+  dateObj= JSON.parse(dates);
+}
+let time= localStorage.getItem("time");
+if(time==null){
+  timeObj = [];
+}
+else{
+  timeObj=JSON.parse(time);
+}
+    timeObj.splice(index,1);
+    localStorage.setItem("time",JSON.stringify(timeObj));
+    dateObj.splice(index,1);
+    localStorage.setItem("date",JSON.stringify(dateObj));
     titleObj.splice(index,1);
     localStorage.setItem("title",JSON.stringify(titleObj));
     notesObj.splice(index,1);
@@ -133,8 +191,9 @@ search.addEventListener('input',function(){
     let noteCards = document.getElementsByClassName('noteCard');
     Array.from(noteCards).forEach(function(element){
         let cardText1 = element.getElementsByTagName('p')[0].innerText.toLowerCase();
-        let cardText2 = element.getElementsByTagName('h5')[0].innerText.toLowerCase();
-        if(cardText1.includes(inputVal) || cardText2.includes(inputVal)){
+        let cardText2 = element.getElementsByTagName('h4')[0].innerText.toLowerCase();
+        let cardText3 = element.getElementsByTagName('p')[1].innerText.toLowerCase();
+        if(cardText1.includes(inputVal) || cardText2.includes(inputVal) || cardText3.includes(inputVal)){
             element.style.display = "block";
         }
         else{
@@ -223,8 +282,8 @@ elem.appendChild(text);
 function editDivTitle(index){
     let divElem= document.getElementsByClassName("editableDiv");
 
-    divElem[index].getElementsByTagName('h5')[0].contentEditable = "true";
-    console.log("this is editing");
+    divElem[index].getElementsByTagName('h4')[0].contentEditable = "true";
+    // console.log("this is editing");
 
     let btnid = document.getElementById(`${index}`);
     divElem[index].insertBefore(elem,btnid);
@@ -232,7 +291,7 @@ function editDivTitle(index){
     elem.addEventListener("click",function(){
         let title = localStorage.getItem('title');
         let titleObj = JSON.parse(title);
-        titleObj[index]=  divElem[index].getElementsByTagName('h5')[0].innerText;
+        titleObj[index]=  divElem[index].getElementsByTagName('h4')[0].innerText;
         localStorage.setItem('title',JSON.stringify(titleObj));
         elem.remove();
     })
@@ -246,7 +305,7 @@ function editDivP(index){
     let divElem= document.getElementsByClassName("editableDiv");
 
     divElem[index].getElementsByTagName('p')[0].contentEditable = "true";
-    console.log("this is editing");
+    // console.log("this is editing");
     
     let btnid = document.getElementById(`${index}`);
     divElem[index].insertBefore(elem,btnid);
